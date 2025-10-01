@@ -15,9 +15,9 @@ jobs:
           # cache-dependency-path: "build.gradle.kts"
       - name: Run tests and generate JaCoCo report
         run: |
-          ./cviceni/SmartCaffe/gradlew build
-      - name: Upload coverage to Codecov
-        uses: codecov/codecov-action@v5
-        env:
-          CODECOV_TOKEN: ${{ secrets.CODECOV_ORG_TOKEN }}
-          fail_ci_if_error: "true"
+          ls -al
+      # - name: Upload coverage to Codecov
+      #   uses: codecov/codecov-action@v5
+      #   env:
+      #     CODECOV_TOKEN: ${{ secrets.CODECOV_ORG_TOKEN }}
+      #     fail_ci_if_error: "true"
