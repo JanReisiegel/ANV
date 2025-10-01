@@ -13,10 +13,14 @@ jobs:
           distribution: "temurin"
           cache: "gradle"
           # cache-dependency-path: "build.gradle.kts"
-      - name: Run tests and generate JaCoCo report
+      - name: Before Install
         run: |
           cd cviceni
           cd SmartCaffe
+          chmod +x gradlew
+          chmod +x gradle/wrapper/gradle-wrapper.jar
+      - name: Test and collect coverage
+        run: |
           ls -al
       # - name: Upload coverage to Codecov
       #   uses: codecov/codecov-action@v5
