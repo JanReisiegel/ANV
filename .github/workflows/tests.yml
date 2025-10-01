@@ -15,6 +15,8 @@ jobs:
           # cache-dependency-path: "build.gradle.kts"
       - name: Run tests and generate JaCoCo report
         run: |
+          cd cviceni
+          cd SmartCaffe
           ls -al
       # - name: Upload coverage to Codecov
       #   uses: codecov/codecov-action@v5
