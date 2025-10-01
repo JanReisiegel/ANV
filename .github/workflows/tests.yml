@@ -21,9 +21,12 @@ jobs:
           chmod +x gradle/wrapper/gradle-wrapper.jar
       - name: Test and collect coverage
         run: |
-          ls -al
-      # - name: Upload coverage to Codecov
-      #   uses: codecov/codecov-action@v5
-      #   env:
-      #     CODECOV_TOKEN: ${{ secrets.CODECOV_ORG_TOKEN }}
-      #     fail_ci_if_error: "true"
+          cd cviceni
+          cd SmartCaffe
+          ./gradlew build
+          ./gradlew test
+      - name: Upload coverage to Codecov
+        uses: codecov/codecov-action@v5
+        env:
+          CODECOV_TOKEN: ${{ secrets.CODECOV_ORG_TOKEN }}
+          fail_ci_if_error: "true"
