@@ -1,5 +1,6 @@
 package reisiegel.jan
 
+import DrinkFactory
 import reisiegel.jan.Drinks.Beer
 import reisiegel.jan.Drinks.Caffe
 import drinks.Drink
