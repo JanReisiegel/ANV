@@ -12,7 +12,7 @@ jobs:
           java-version: "19"
           distribution: "temurin"
           cache: "gradle"
-          cache-dependency-path: "build.gradle.kts"
+          # cache-dependency-path: "build.gradle.kts"
       - name: Run tests and generate JaCoCo report
         run: ./gradlew build
       - name: Upload coverage to Codecov
