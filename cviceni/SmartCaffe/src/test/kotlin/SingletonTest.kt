@@ -1,6 +1,5 @@
 
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.joinAll
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
 import kotlinx.coroutines.withContext
@@ -15,7 +14,7 @@ class SingletonTest {
 
     @AfterEach
     fun resetSingleton() {
-        CaffeConfig.deleteInstace()
+        CaffeConfig.deleteInstance()
     }
 
     @Test
