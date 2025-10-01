@@ -2,7 +2,7 @@ package reisiegel.jan
 
 import reisiegel.jan.Drinks.Beer
 import reisiegel.jan.Drinks.Caffe
-import reisiegel.jan.Drinks.Drink
+import drinks.Drink
 import reisiegel.jan.Drinks.EmptyBottle
 import reisiegel.jan.Drinks.Tea
 
@@ -32,7 +32,7 @@ class CaffeConfig private constructor(name: String): DrinkFactory() {
     }
 
     override fun serveDrink(type: String): String{
-        return "${createDrink(type).Serve()} in $caffeName"
+        return "${createDrink(type).serve()} in $caffeName"
     }
 
     override fun createDrink(type: String): Drink {

@@ -1,10 +1,8 @@
-package reisiegel.jan
-
-import reisiegel.jan.Drinks.Drink
+import drinks.Drink
 
 abstract class DrinkFactory {
-    protected abstract fun createDrink(type: String): Drink;
+    abstract fun createDrink(type: String): Drink;
     open fun serveDrink(type: String): String{
-        return createDrink(type).Serve()
+        return createDrink(type).serve()
     }
 }

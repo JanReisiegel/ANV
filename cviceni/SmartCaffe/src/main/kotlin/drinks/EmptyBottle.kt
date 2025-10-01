@@ -1,7 +1,9 @@
 package reisiegel.jan.Drinks
 
+import drinks.Drink
+
 class EmptyBottle: Drink {
-    override fun Serve(): String {
+    override fun serve(): String {
         return "Serving empty bottle"
     }
 }
