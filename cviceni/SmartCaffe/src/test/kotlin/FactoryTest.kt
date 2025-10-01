@@ -59,7 +59,6 @@ class FactoryTest {
 
     @Test
     fun serveTeaTest() {
-        // Arrange (Tea().serve() vrací "Čaj servírován")
         val expected = "Serving tea in $TEST_CAFFE_NAME"
 
         // Act
@@ -71,7 +70,6 @@ class FactoryTest {
 
     @Test
     fun serveCaffeTest() {
-        // Arrange (Caffe().serve() vrací "Káva servírována")
         val expected = "Serving caffe in $TEST_CAFFE_NAME"
 
         // Act
@@ -83,11 +81,21 @@ class FactoryTest {
 
     @Test
     fun serveEmptyBottleTest() {
-        // Arrange (EmptyBottle().serve() vrací "Prázdná láhev")
         val expected = "Serving empty bottle in $TEST_CAFFE_NAME"
 
         // Act
         val result = caffeConfig.serveDrink("džus")
+
+        // Assert
+        assertEquals(expected, result)
+    }
+
+    @Test
+    fun serveBeerTest() {
+        val expected = "Serving beer in $TEST_CAFFE_NAME"
+
+        // Act
+        val result = caffeConfig.serveDrink("beer")
 
         // Assert
         assertEquals(expected, result)
