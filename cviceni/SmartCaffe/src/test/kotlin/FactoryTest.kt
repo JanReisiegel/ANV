@@ -1,13 +1,8 @@
 import org.junit.jupiter.api.AfterEach
 import org.junit.jupiter.api.Assertions.assertEquals
-import org.junit.jupiter.api.Assertions.assertTrue
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import reisiegel.jan.CaffeConfig
-import reisiegel.jan.Drinks.Beer
-import reisiegel.jan.Drinks.Caffe
-import reisiegel.jan.Drinks.EmptyBottle
-import reisiegel.jan.Drinks.Tea
 
 class FactoryTest {
 
@@ -22,43 +17,17 @@ class FactoryTest {
     fun clean() = CaffeConfig.deleteInstance()
 
     @Test
-    fun teaTest() {
-        // Act
-        val drink = caffeConfig.createDrink("tea")
-
-        // Assert
-        assertTrue(drink is Tea)
-    }
-
-    @Test
     fun caffeTest() {
         // Act
-        val drink = caffeConfig.createDrink("caffe")
+        val customDrink = caffeConfig.createDrink("caffe")
 
-        // Assert
-        assertTrue(drink is Caffe)
+        // Assert: Overeni, ze Factory vratila spravne sestaveny napoj
+        assertEquals("Serving caffe", customDrink.toString())
     }
 
     @Test
-    fun beerTest() {
-        // Act
-        val drink = caffeConfig.createDrink("beer")
-
-        // Assert
-        assertTrue(drink is Beer)
-    }
-
-    @Test
-    fun emptyBottleTest() {
-        // Act
-        val drink = caffeConfig.createDrink("whiskey")
-
-        // Assert
-        assertTrue(drink is EmptyBottle)
-    }
-
-    @Test
-    fun serveTeaTest() {
+    fun teaTest() {
+        // Arrange
         val expected = "Serving tea in $TEST_CAFFE_NAME"
 
         // Act
@@ -69,33 +38,26 @@ class FactoryTest {
     }
 
     @Test
-    fun serveCaffeTest() {
-        val expected = "Serving caffe in $TEST_CAFFE_NAME"
-
-        // Act
-        val result = caffeConfig.serveDrink("caffe")
-
-        // Assert
-        assertEquals(expected, result)
-    }
-
-    @Test
-    fun serveEmptyBottleTest() {
-        val expected = "Serving empty bottle in $TEST_CAFFE_NAME"
-
-        // Act
-        val result = caffeConfig.serveDrink("džus")
-
-        // Assert
-        assertEquals(expected, result)
-    }
-
-    @Test
-    fun serveBeerTest() {
-        val expected = "Serving beer in $TEST_CAFFE_NAME"
+    fun beerTest() {
+        // Arrange
+        val expectedDrinkPart = "Serving beer"
+        val expected = "$expectedDrinkPart in $TEST_CAFFE_NAME"
 
         // Act
         val result = caffeConfig.serveDrink("beer")
+
+        // Assert
+        assertEquals(expected, result)
+    }
+
+    @Test
+    fun emptyBottleTest() {
+        // Arrange
+        val expectedDrinkPart = "Serving empty bottle"
+        val expected = "$expectedDrinkPart in $TEST_CAFFE_NAME"
+
+        // Act
+        val result = caffeConfig.serveDrink("whiskey")
 
         // Assert
         assertEquals(expected, result)
