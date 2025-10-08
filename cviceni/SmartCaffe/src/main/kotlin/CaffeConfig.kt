@@ -2,11 +2,6 @@ package reisiegel.jan
 
 import DrinkFactory
 import drinks.CustomDrink
-import reisiegel.jan.Drinks.Beer
-import reisiegel.jan.Drinks.Caffe
-import drinks.Drink
-import reisiegel.jan.Drinks.EmptyBottle
-import reisiegel.jan.Drinks.Tea
 
 class CaffeConfig private constructor(name: String): DrinkFactory() {
     private var caffeName: String = name

@@ -7,7 +7,7 @@ import reisiegel.jan.Drinks.Tea
 
 
 class CustomDrink private constructor(builder: Builder){
-    private lateinit var drinkType: String
+    private var drinkType: String
     private var milk: Boolean
     private var sugar: Boolean
     private var caramel: Boolean

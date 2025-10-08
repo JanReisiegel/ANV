@@ -1,5 +1,4 @@
 import drinks.CustomDrink
-import drinks.Drink
 
 abstract class DrinkFactory {
     abstract fun createDrink(type: String, milk: Boolean, sugar: Boolean, caramel: Boolean, honey: Boolean, cinnamon: Boolean): CustomDrink;
