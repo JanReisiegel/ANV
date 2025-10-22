@@ -6,4 +6,7 @@ class Tea: Drink {
     override fun serve(): String {
         return "Serving tea"
     }
+    override fun create(): String {
+        return "Created tea"
+    }
 }
