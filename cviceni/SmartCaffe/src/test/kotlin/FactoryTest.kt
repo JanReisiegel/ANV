@@ -92,17 +92,6 @@ class FactoryTest {
             override fun notifyAll(status: String) {
                 TODO("Not yet implemented")
             }
-
-            override fun serveDrink(
-                type: String,
-                milk: Boolean,
-                sugar: Boolean,
-                caramel: Boolean,
-                honey: Boolean,
-                cinnamon: Boolean
-            ): String {
-                return super.serveDrink(type, milk, sugar, caramel, honey, cinnamon)
-            }
         }
 
         val exception = assertThrows<NotImplementedError>{
