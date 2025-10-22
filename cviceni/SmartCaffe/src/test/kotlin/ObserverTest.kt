@@ -4,16 +4,14 @@ import org.junit.jupiter.api.AfterEach
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Assertions.assertTrue
 import org.junit.jupiter.api.BeforeEach
-import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
 import reisiegel.jan.CaffeConfig
-import java.io.PrintStream
 import kotlin.reflect.KProperty1
 import kotlin.reflect.full.memberProperties
-import java.io.ByteArrayOutputStream
+import kotlin.reflect.jvm.javaField
 
 class ObserverTest {
-    class MockObserver(val id: String): IObserver {
+    class MockObserver(id: String): IObserver {
         var notificationHistory: MutableList<String> = mutableListOf()
 
         override fun update(status: String) {
@@ -45,22 +43,26 @@ class ObserverTest {
     }
 
     @Test
-    fun `addObserver by mel pridat observer do seznamu`() {
+    fun addObserverTest() {
         // Act
         testConfig.addObserver(observer1)
 
         // Assert (Potřebujeme se dostat k privátnímu seznamu 'observers' pomocí reflexe)
         val observersProperty = CaffeConfig::class.memberProperties
-            .first { it.name == "observers" } as KProperty1<CaffeConfig, List<IObserver>>
+            .first { it.name == "observers" } as KProperty1<CaffeConfig, MutableList<IObserver>>
+        val javaField = observersProperty.javaField!!
 
-        val observerList = observersProperty.get(testConfig)
+        // ** KLÍČOVÝ KROK: Nastavení přístupnosti na true pro bypass 'protected' **
+        javaField.isAccessible = true
+
+        val observerList = javaField.get(testConfig) as MutableList<IObserver>
 
         assertEquals(1, observerList.size)
         assertTrue(observerList.contains(observer1))
     }
 
     @Test
-    fun `removeObserver by mel odebrat observer ze seznamu`() {
+    fun removeObserverTest() {
         // Arrange
         testConfig.addObserver(observer1)
         testConfig.addObserver(observer2)
@@ -68,11 +70,15 @@ class ObserverTest {
         // Act
         testConfig.removeObserver(observer1)
 
-        // Assert
+        // Assert (Potřebujeme se dostat k privátnímu seznamu 'observers' pomocí reflexe)
         val observersProperty = CaffeConfig::class.memberProperties
-            .first { it.name == "observers" } as KProperty1<CaffeConfig, List<IObserver>>
+            .first { it.name == "observers" } as KProperty1<CaffeConfig, MutableList<IObserver>>
+        val javaField = observersProperty.javaField!!
 
-        val observerList = observersProperty.get(testConfig)
+        // ** KLÍČOVÝ KROK: Nastavení přístupnosti na true pro bypass 'protected' **
+        javaField.isAccessible = true
+
+        val observerList = javaField.get(testConfig) as MutableList<IObserver>
 
         assertEquals(1, observerList.size)
         assertTrue(observerList.contains(observer2))
@@ -80,7 +86,7 @@ class ObserverTest {
     }
 
     @Test
-    fun `notifyAll by mel notifikovat vsechny pridane observéry se stejnou zpravou`() {
+    fun notifyAllTest() {
         // Arrange
         testConfig.addObserver(observer1)
         testConfig.addObserver(observer2)
@@ -98,12 +104,12 @@ class ObserverTest {
     }
 
     @Test
-    fun `createDrink by mel automaticky notifikovat observer s kompletní zprávou`() {
+    fun createDrinkObserverTest() {
         // Arrange
         testConfig.addObserver(observer1)
 
         // Očekávaná zpráva z createMessage + " in Testovací Kavárna"
-        val expectedMessage = "Káva servírována with sugar with caramel in $TEST_CAFFE_NAME"
+        val expectedMessage = "Created caffe with sugar with caramel in $TEST_CAFFE_NAME"
 
         // Act: Spuštění Factory metody
         testConfig.createDrink("caffe", false, true, true, false, false)
@@ -114,7 +120,7 @@ class ObserverTest {
     }
 
     @Test
-    fun `createDrink by nemel notifikovat observera, ktery byl odebran`() {
+    fun createDrinkTest2() {
         // Arrange
         testConfig.addObserver(observer1)
         testConfig.addObserver(observer2)
