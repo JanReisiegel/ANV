@@ -2,6 +2,8 @@ package reisiegel.jan
 
 import DrinkFactory
 import drinks.CustomDrink
+import observers.IObserver
+import observers.OrderSubject
 
 class CaffeConfig private constructor(name: String): DrinkFactory() {
     private var caffeName: String = name
@@ -40,6 +42,21 @@ class CaffeConfig private constructor(name: String): DrinkFactory() {
             drinkBuilder.honey()
         if (cinnamon)
             drinkBuilder.cinnamon()
-        return drinkBuilder.build()
+        val drink: CustomDrink = drinkBuilder.build()
+        val message: String = "${drink.createMessage()} in $caffeName"
+        notifyAll(message)
+        return drink
+    }
+
+    override fun addObserver(observer: IObserver) {
+        observers.add(observer)
+    }
+
+    override fun removeObserver(observer: IObserver) {
+        observers.remove(observer)
+    }
+
+    override fun notifyAll(status: String) {
+        observers.forEach { it.update(status) }
     }
 }

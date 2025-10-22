@@ -57,6 +57,21 @@ class CustomDrink private constructor(builder: Builder){
         }
     }
 
+    fun createMessage(): String{
+        val drink: Drink = when(drinkType){
+            "tea" -> Tea()
+            "caffe" -> Caffe()
+            "beer" -> Beer()
+            else -> EmptyBottle()
+        }
+        return (drink.create()
+                + (if (milk) " with milk" else "")
+                + (if (sugar) " with sugar" else "")
+                + (if (caramel) " with caramel" else "")
+                + (if (honey) " with honey" else "")
+                + (if (cinnamon) " with cinnamon" else ""))
+    }
+
     override fun toString(): String{
         val drink: Drink = when(drinkType){
             "tea" -> Tea()

@@ -6,4 +6,7 @@ class EmptyBottle: Drink {
     override fun serve(): String {
         return "Serving empty bottle"
     }
+    override fun create(): String {
+        return "Created empty bottle"
+    }
 }

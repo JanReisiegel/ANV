@@ -1,5 +1,7 @@
 package reisiegel.jan
 
+import observers.EmployeeObserver
+
 //TIP To <b>Run</b> code, press <shortcut actionId="Run"/> or
 // click the <icon src="AllIcons.Actions.Execute"/> icon in the gutter.
 fun main() {
@@ -7,6 +9,8 @@ fun main() {
 
     val instance = CaffeConfig.getInstance("Testovací kavárna")
     println(instance.getCaffeName())
+    instance.addObserver(EmployeeObserver("Barista"))
+    instance.addObserver(EmployeeObserver("Waiter"))
     println(instance.serveDrink("tea", milk = true))
     println(instance.serveDrink("caffe", milk = true, sugar = true, ))
     println(instance.serveDrink("beer", cinnamon = true))
