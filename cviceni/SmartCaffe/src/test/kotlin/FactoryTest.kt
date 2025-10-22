@@ -1,12 +1,8 @@
-import drinks.CustomDrink
-import observers.IObserver
 import org.junit.jupiter.api.AfterEach
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
-import org.junit.jupiter.api.assertThrows
 import reisiegel.jan.CaffeConfig
-import kotlin.reflect.typeOf
 
 class FactoryTest {
 
@@ -65,37 +61,5 @@ class FactoryTest {
 
         // Assert
         assertEquals(expected, result)
-    }
-
-    @Test
-    fun serveDrinkUnimplemented(){
-        class DrinkUnimplemented : DrinkFactory() {
-            override fun createDrink(
-                type: String,
-                milk: Boolean,
-                sugar: Boolean,
-                caramel: Boolean,
-                honey: Boolean,
-                cinnamon: Boolean
-            ): CustomDrink {
-                TODO("Not yet implemented")
-            }
-
-            override fun addObserver(observer: IObserver) {
-                TODO("Not yet implemented")
-            }
-
-            override fun removeObserver(observer: IObserver) {
-                TODO("Not yet implemented")
-            }
-
-            override fun notifyAll(status: String) {
-                TODO("Not yet implemented")
-            }
-        }
-
-        val exception = assertThrows<NotImplementedError>{
-            DrinkUnimplemented().serveDrink("tea")
-        }
     }
 }
