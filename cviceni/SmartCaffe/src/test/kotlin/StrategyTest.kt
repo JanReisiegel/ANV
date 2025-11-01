@@ -28,15 +28,15 @@ class StrategyTest {
 
     private lateinit var testConfig: CaffeConfig
     private val TEST_CAFFE_NAME = "Testovací Kavárna"
-    private lateinit var observer1: MockObserver
-    private lateinit var observer2: MockObserver
+    private lateinit var observer3: MockObserver
+    private lateinit var observer4: MockObserver
 
     @BeforeEach
     fun setUp() {
         testConfig = CaffeConfig.getInstance(TEST_CAFFE_NAME)
 
-        observer1 = MockObserver("Petr")
-        observer2 = MockObserver("Jana")
+        observer3 = MockObserver("Petr")
+        observer4 = MockObserver("Jana")
     }
 
     @AfterEach
@@ -46,7 +46,7 @@ class StrategyTest {
 
     @Test
     fun addCheckoutObserverTest(){
-        testConfig.addCheckoutObserver(observer1)
+        testConfig.addCheckoutObserver(observer3)
 
         val observersProperty = CaffeConfig::class.memberProperties.first{it.name == "checkoutObservers"} as KProperty1<CaffeConfig, MutableList<IObserver>>
         val javaField = observersProperty.javaField!!
@@ -56,17 +56,17 @@ class StrategyTest {
         val observerList = javaField.get(testConfig) as MutableList<IObserver>
 
         assertEquals(1,observerList.size)
-        assertTrue(observerList.contains(observer1))
+        assertTrue(observerList.contains(observer3))
     }
 
     @Test
     fun removeCheckoutObserverTest() {
         // Arrange
-        testConfig.addCheckoutObserver(observer1)
-        testConfig.addCheckoutObserver(observer2)
+        testConfig.addCheckoutObserver(observer3)
+        testConfig.addCheckoutObserver(observer4)
 
         // Act
-        testConfig.removeCheckoutObserver(observer1)
+        testConfig.removeCheckoutObserver(observer3)
 
         // Assert (Potřebujeme se dostat k privátnímu seznamu 'observers' pomocí reflexe)
         val observersProperty = CaffeConfig::class.memberProperties
@@ -79,47 +79,47 @@ class StrategyTest {
         val observerList = javaField.get(testConfig) as MutableList<IObserver>
 
         assertEquals(1, observerList.size)
-        Assertions.assertTrue(observerList.contains(observer2))
-        Assertions.assertTrue(!observerList.contains(observer1))
+        Assertions.assertTrue(observerList.contains(observer4))
+        Assertions.assertTrue(!observerList.contains(observer3))
     }
 
     @Test
     fun notifyAllTest() {
         // Arrange
-        testConfig.addCheckoutObserver(observer1)
-        testConfig.addCheckoutObserver(observer2)
+        testConfig.addCheckoutObserver(observer3)
+        testConfig.addCheckoutObserver(observer4)
         val testStatus = "Nová objednávka připravena k servírování"
 
         // Act
         testConfig.notifyCheckouts(testStatus)
 
         // Assert
-        assertEquals(1, observer1.notificationHistory.size)
-        assertEquals(testStatus, observer1.notificationHistory[0])
+        assertEquals(1, observer3.notificationHistory.size)
+        assertEquals(testStatus, observer3.notificationHistory[0])
 
-        assertEquals(1, observer2.notificationHistory.size)
-        assertEquals(testStatus, observer2.notificationHistory[0])
+        assertEquals(1, observer4.notificationHistory.size)
+        assertEquals(testStatus, observer4.notificationHistory[0])
     }
 
     @Test
     fun creditCardPaymentTest(){
-        testConfig.addCheckoutObserver(observer1)
+        testConfig.addCheckoutObserver(observer3)
 
         val expectedMessage = "Customer, on table 3, want to pay 3,55 using credit card."
         testConfig.checkout(CreditPayment(), 3.55, 3)
 
-        assertEquals(1, observer1.notificationHistory.size)
-        assertEquals(expectedMessage, observer1.notificationHistory[0])
+        assertEquals(1, observer3.notificationHistory.size)
+        assertEquals(expectedMessage, observer3.notificationHistory[0])
     }
 
     @Test
     fun cashPaymentTest(){
-        testConfig.addCheckoutObserver(observer1)
+        testConfig.addCheckoutObserver(observer3)
 
         val expectedMessage = "Customer, on table 3, want to pay 3,55 using cash."
         testConfig.checkout(CashPayment(), 3.55, 3)
 
-        assertEquals(1, observer1.notificationHistory.size)
-        assertEquals(expectedMessage, observer1.notificationHistory[0])
+        assertEquals(1, observer3.notificationHistory.size)
+        assertEquals(expectedMessage, observer3.notificationHistory[0])
     }
 }
