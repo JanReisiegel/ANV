@@ -3,10 +3,13 @@ package reisiegel.jan
 import DrinkFactory
 import drinks.CustomDrink
 import observers.IObserver
-import observers.OrderSubject
+import payments.Checkout
+import payments.CreditPayment
+import payments.IPaymentStrategy
 
 class CaffeConfig private constructor(name: String): DrinkFactory() {
     private var caffeName: String = name
+    private val checkoutObject: Checkout = Checkout(CreditPayment())
 
     companion object{
         @Volatile
@@ -20,6 +23,11 @@ class CaffeConfig private constructor(name: String): DrinkFactory() {
             instance = null
         }
 
+    }
+
+    fun checkout(paymentStrategy: IPaymentStrategy, amount: Double, tableNumber: Int){
+        checkoutObject.setStrategy(paymentStrategy)
+        notifyCheckouts(checkoutObject.accessPayment(amount, tableNumber))
     }
 
     fun getCaffeName(): String{
@@ -43,7 +51,7 @@ class CaffeConfig private constructor(name: String): DrinkFactory() {
         if (cinnamon)
             drinkBuilder.cinnamon()
         val drink: CustomDrink = drinkBuilder.build()
-        val message: String = "${drink.createMessage()} in $caffeName"
+        val message = "${drink.createMessage()} in $caffeName"
         notifyAll(message)
         return drink
     }
@@ -58,5 +66,17 @@ class CaffeConfig private constructor(name: String): DrinkFactory() {
 
     override fun notifyAll(status: String) {
         observers.forEach { it.update(status) }
+    }
+
+    override fun addCheckoutObserver(observer: IObserver) {
+        checkoutObservers.add(observer)
+    }
+
+    override fun removeCheckoutObserver(observer: IObserver) {
+        checkoutObservers.remove(observer)
+    }
+
+    override fun notifyCheckouts(status: String) {
+        checkoutObservers.forEach { it.update(status) }
     }
 }
