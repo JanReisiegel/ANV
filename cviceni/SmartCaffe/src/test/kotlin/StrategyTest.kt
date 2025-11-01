@@ -108,6 +108,7 @@ class StrategyTest {
         val expectedMessage = "Customer, on table 3, want to pay 3,55 using credit card."
         testConfig.checkout(CreditPayment(), 3.55, 3)
 
+        println(observer3.notificationHistory[0])
         assertEquals(1, observer3.notificationHistory.size)
         assertEquals(expectedMessage, observer3.notificationHistory[0])
     }
@@ -121,5 +122,6 @@ class StrategyTest {
 
         assertEquals(1, observer3.notificationHistory.size)
         assertEquals(expectedMessage, observer3.notificationHistory[0])
+        println(observer3.notificationHistory[0])
     }
 }
