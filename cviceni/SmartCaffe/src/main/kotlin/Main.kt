@@ -1,6 +1,8 @@
 package reisiegel.jan
 
 import observers.EmployeeObserver
+import payments.CashPayment
+import payments.CreditPayment
 
 //TIP To <b>Run</b> code, press <shortcut actionId="Run"/> or
 // click the <icon src="AllIcons.Actions.Execute"/> icon in the gutter.
@@ -15,4 +17,8 @@ fun main() {
     println(instance.serveDrink("caffe", milk = true, sugar = true, ))
     println(instance.serveDrink("beer", cinnamon = true))
     println(instance.serveDrink("whiskey"))
+    instance.addCheckoutObserver(EmployeeObserver("Waiter"))
+
+    instance.checkout(CreditPayment(), 159.55,1)
+    instance.checkout(CashPayment(), 95.12,3)
 }
