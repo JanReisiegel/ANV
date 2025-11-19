@@ -7,6 +7,4 @@ abstract class OrderSubject {
     abstract fun addCheckoutObserver(observer: IObserver)
     abstract fun removeObserver(observer : IObserver)
     abstract fun removeCheckoutObserver(observer : IObserver)
-    abstract fun notifyAll(status: String)
-    abstract fun notifyCheckouts(status: String)
 }

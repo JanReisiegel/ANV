@@ -1,6 +1,9 @@
 package reisiegel.jan
 
 import DrinkFactory
+import commands.ICommand
+import commands.OrderCommand
+import commands.PaymentCommand
 import drinks.CustomDrink
 import observers.IObserver
 import payments.Checkout
@@ -27,7 +30,8 @@ class CaffeConfig private constructor(name: String): DrinkFactory() {
 
     fun checkout(paymentStrategy: IPaymentStrategy, amount: Double, tableNumber: Int){
         checkoutObject.setStrategy(paymentStrategy)
-        notifyCheckouts(checkoutObject.accessPayment(amount, tableNumber))
+        val paymentCommand = PaymentCommand(checkoutObservers.toList(), checkoutObject, amount, tableNumber)
+        paymentCommand.execute()
     }
 
     fun getCaffeName(): String{
@@ -51,8 +55,8 @@ class CaffeConfig private constructor(name: String): DrinkFactory() {
         if (cinnamon)
             drinkBuilder.cinnamon()
         val drink: CustomDrink = drinkBuilder.build()
-        val message = "${drink.createMessage()} in $caffeName"
-        notifyAll(message)
+        val orderCommand = OrderCommand(observers.toList(), drink, caffeName)
+        orderCommand.execute()
         return drink
     }
 
@@ -64,19 +68,11 @@ class CaffeConfig private constructor(name: String): DrinkFactory() {
         observers.remove(observer)
     }
 
-    override fun notifyAll(status: String) {
-        observers.forEach { it.update(status) }
-    }
-
     override fun addCheckoutObserver(observer: IObserver) {
         checkoutObservers.add(observer)
     }
 
     override fun removeCheckoutObserver(observer: IObserver) {
         checkoutObservers.remove(observer)
-    }
-
-    override fun notifyCheckouts(status: String) {
-        checkoutObservers.forEach { it.update(status) }
     }
 }
