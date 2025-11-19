@@ -84,24 +84,6 @@ class StrategyTest {
     }
 
     @Test
-    fun notifyAllTest() {
-        // Arrange
-        testConfig.addCheckoutObserver(observer3)
-        testConfig.addCheckoutObserver(observer4)
-        val testStatus = "Nová objednávka připravena k servírování"
-
-        // Act
-        testConfig.notifyCheckouts(testStatus)
-
-        // Assert
-        assertEquals(1, observer3.notificationHistory.size)
-        assertEquals(testStatus, observer3.notificationHistory[0])
-
-        assertEquals(1, observer4.notificationHistory.size)
-        assertEquals(testStatus, observer4.notificationHistory[0])
-    }
-
-    @Test
     fun creditCardPaymentTest(){
         testConfig.addCheckoutObserver(observer3)
 

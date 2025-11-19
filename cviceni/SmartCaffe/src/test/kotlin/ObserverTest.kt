@@ -86,24 +86,6 @@ class ObserverTest {
     }
 
     @Test
-    fun notifyAllTest() {
-        // Arrange
-        testConfig.addObserver(observer1)
-        testConfig.addObserver(observer2)
-        val testStatus = "Nová objednávka připravena k servírování"
-
-        // Act
-        testConfig.notifyAll(testStatus)
-
-        // Assert
-        assertEquals(1, observer1.notificationHistory.size)
-        assertEquals(testStatus, observer1.notificationHistory[0])
-
-        assertEquals(1, observer2.notificationHistory.size)
-        assertEquals(testStatus, observer2.notificationHistory[0])
-    }
-
-    @Test
     fun createDrinkObserverTest() {
         // Arrange
         testConfig.addObserver(observer1)

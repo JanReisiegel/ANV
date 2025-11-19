@@ -89,15 +89,7 @@ class FactoryTest {
                 TODO("Not yet implemented")
             }
 
-            override fun notifyAll(status: String) {
-                TODO("Not yet implemented")
-            }
-
             override fun addCheckoutObserver(observer: IObserver) {
-                TODO("Not yet implemented")
-            }
-
-            override fun notifyCheckouts(status: String) {
                 TODO("Not yet implemented")
             }
 
