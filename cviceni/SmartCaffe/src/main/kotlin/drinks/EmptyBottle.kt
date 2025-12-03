@@ -1,8 +1,9 @@
 package reisiegel.jan.Drinks
 
 import drinks.Drink
+import drinks.DrinkTemplate
 
-class EmptyBottle: Drink {
+class EmptyBottle(drinkName: String): Drink, DrinkTemplate(drinkName) {
     override fun serve(): String {
         return "Serving empty bottle"
     }
