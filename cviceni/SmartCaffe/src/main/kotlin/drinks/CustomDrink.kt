@@ -59,10 +59,10 @@ class CustomDrink private constructor(builder: Builder){
 
     fun createMessage(): String{
         val drink: Drink = when(drinkType){
-            "tea" -> Tea()
-            "caffe" -> Caffe()
-            "beer" -> Beer()
-            else -> EmptyBottle()
+            "tea" -> Tea(drinkType)
+            "caffe" -> Caffe(drinkType)
+            "beer" -> Beer(drinkType)
+            else -> EmptyBottle(drinkType)
         }
         return (drink.create()
                 + (if (milk) " with milk" else "")
@@ -74,10 +74,10 @@ class CustomDrink private constructor(builder: Builder){
 
     override fun toString(): String{
         val drink: Drink = when(drinkType){
-            "tea" -> Tea()
-            "caffe" -> Caffe()
-            "beer" -> Beer()
-            else -> EmptyBottle()
+            "tea" -> Tea(drinkType)
+            "caffe" -> Caffe(drinkType)
+            "beer" -> Beer(drinkType)
+            else -> EmptyBottle(drinkType)
         }
         return (drink.serve()
                 + (if (milk) " with milk" else "")
