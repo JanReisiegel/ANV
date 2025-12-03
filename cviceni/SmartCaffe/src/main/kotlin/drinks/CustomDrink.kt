@@ -6,8 +6,8 @@ import reisiegel.jan.Drinks.EmptyBottle
 import reisiegel.jan.Drinks.Tea
 
 
-class CustomDrink private constructor(builder: Builder){
-    private var drinkType: String
+open class CustomDrink(var builder: Builder){
+    private var drinkType: String = builder.drinkType
     private var milk: Boolean
     private var sugar: Boolean
     private var caramel: Boolean
@@ -15,7 +15,6 @@ class CustomDrink private constructor(builder: Builder){
     private var cinnamon: Boolean
 
     init {
-        drinkType = builder.drinkType
         milk = builder.milk
         sugar = builder.sugar
         caramel = builder.caramel

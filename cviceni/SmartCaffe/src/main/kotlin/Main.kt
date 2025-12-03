@@ -20,7 +20,7 @@ fun main() {
     instance.addObserver(EmployeeObserver("Barista"))
     instance.addObserver(EmployeeObserver("Waiter"))
     println(instance.serveDrink("tea", milk = true))
-    println(instance.serveDrink("caffe", milk = true, sugar = true, ))
+    println(instance.serveDrink("caffe", milk = true, sugar = true, toGo = true, ownMug = true))
     println(instance.serveDrink("beer", cinnamon = true))
     println(instance.serveDrink("whiskey"))
     instance.addCheckoutObserver(EmployeeObserver("Waiter"))
