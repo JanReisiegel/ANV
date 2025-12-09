@@ -5,6 +5,8 @@ import commands.ICommand
 import commands.OrderCommand
 import commands.PaymentCommand
 import drinks.CustomDrink
+import drinks.OwnMugDecorator
+import drinks.ToGoDecorator
 import observers.IObserver
 import payments.Checkout
 import payments.CreditPayment
@@ -38,11 +40,11 @@ class CaffeConfig private constructor(name: String): DrinkFactory() {
         return caffeName
     }
 
-    override fun serveDrink(type: String, milk: Boolean , sugar: Boolean, caramel: Boolean, honey: Boolean, cinnamon: Boolean): String{
-        return "${createDrink(type, milk, sugar, caramel, honey, cinnamon)} in $caffeName"
+    override fun serveDrink(type: String, milk: Boolean , sugar: Boolean, caramel: Boolean, honey: Boolean, cinnamon: Boolean, toGo: Boolean, ownMug: Boolean): String{
+        return "${createDrink(type, milk, sugar, caramel, honey, cinnamon, toGo, ownMug)} in $caffeName"
     }
 
-    override fun createDrink(type: String, milk: Boolean, sugar: Boolean, caramel: Boolean, honey: Boolean, cinnamon: Boolean): CustomDrink {
+    override fun createDrink(type: String, milk: Boolean, sugar: Boolean, caramel: Boolean, honey: Boolean, cinnamon: Boolean, toGo: Boolean, ownMug: Boolean): CustomDrink {
         val drinkBuilder = CustomDrink.Builder(type)
         if (milk)
             drinkBuilder.milk()
@@ -54,7 +56,11 @@ class CaffeConfig private constructor(name: String): DrinkFactory() {
             drinkBuilder.honey()
         if (cinnamon)
             drinkBuilder.cinnamon()
-        val drink: CustomDrink = drinkBuilder.build()
+        var drink: CustomDrink = drinkBuilder.build()
+        if (toGo)
+            drink = ToGoDecorator(drink)
+        if (ownMug)
+            drink = OwnMugDecorator(drink)
         val orderCommand = OrderCommand(observers.toList(), drink, caffeName)
         orderCommand.execute()
         return drink
