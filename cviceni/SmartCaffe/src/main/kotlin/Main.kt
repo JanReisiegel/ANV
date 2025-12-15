@@ -7,6 +7,7 @@ import observers.EmployeeObserver
 import observers.IObserver
 import payments.CashPayment
 import payments.CreditPayment
+import payments.ProxyCardPayment
 import reisiegel.jan.Drinks.Caffe
 import reisiegel.jan.Drinks.Tea
 
@@ -25,7 +26,8 @@ fun main() {
     println(instance.serveDrink("whiskey"))
     instance.addCheckoutObserver(EmployeeObserver("Waiter"))
 
-    instance.checkout(CreditPayment(), 159.55,1)
+    instance.checkout(ProxyCardPayment(false), 159.55,1)
+    instance.checkout(ProxyCardPayment(true), 159.55,1)
     instance.checkout(CashPayment(), 95.12,3)
 
     val mobileOrder: DrinkOrder = DrinkOrder()

@@ -3,3 +3,4 @@ plugins {
 }
 rootProject.name = "SmartCaffe"
 include("Zapocet2")
+include("Zapocet1")
