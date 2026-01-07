@@ -1,0 +1,61 @@
+//Factory
+-----------------------------
+public interface Transport {
+    void deliver();
+}
+
+
+public class Truck implements Transport {
+    @Override
+    public void deliver() {
+        System.out.println("Delivering cargo by land in a truck.");
+    }
+}
+
+
+public class Ship implements Transport {
+    @Override
+    public void deliver() {
+        System.out.println("Delivering cargo by sea in a ship.");
+    }
+}
+
+
+public abstract class Logistics {
+    public void planDelivery() {
+        Transport transport = createTransport();
+        transport.deliver();
+    }
+
+    // Factory Method
+    protected abstract Transport createTransport();
+}
+
+
+public class RoadLogistics extends Logistics {
+    @Override
+    protected Transport createTransport() {
+        return new Truck();
+    }
+}
+
+
+public class SeaLogistics extends Logistics {
+    @Override
+    protected Transport createTransport() {
+        return new Ship();
+    }
+}
+
+public class Main {
+    public static void main(String[] args) {
+        Logistics road = new RoadLogistics();
+        Logistics sea = new SeaLogistics();
+
+        road.planDelivery(); // Výstup: Delivering cargo by land in a truck.
+        sea.planDelivery();  // Výstup: Delivering cargo by sea in a ship.
+    }
+}
+
+
+
