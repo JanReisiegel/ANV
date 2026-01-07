@@ -1,4 +1,4 @@
-package reisiegel.jan.Strategy
+package reisiegel.jan
 
 // Interface Strategy (definuje operaci)
 interface ShippingStrategy {

@@ -1,4 +1,4 @@
-package reisiegel.jan.Template
+package reisiegel.jan
 
 // Abstraktní třída definující šablonu algoritmu
 abstract class DocumentProcessor {

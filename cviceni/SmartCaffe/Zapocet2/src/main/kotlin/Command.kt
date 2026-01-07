@@ -1,4 +1,4 @@
-package reisiegel.jan.Command
+package reisiegel.jan
 
 // Interface Command (zapouzdřuje požadavek)
 interface Command {

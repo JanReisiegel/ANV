@@ -1,4 +1,4 @@
-package reisiegel.jan.Decorator
+package reisiegel.jan
 
 // Komponenta (základní rozhraní pro objekt a jeho úpravy/dekorace)
 interface Shape {

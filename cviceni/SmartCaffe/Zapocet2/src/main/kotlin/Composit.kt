@@ -1,4 +1,4 @@
-package reisiegel.jan.Composite
+package reisiegel.jan
 
 // Komponenta (společné rozhraní pro listy a složené objekty)
 interface OrganizationComponent {
